@@ -7,6 +7,7 @@
 
 using std::cout;
 using std::cin;
+using std::endl;
 
 const int MAX_LENGTH = 9999;
 
@@ -37,7 +38,7 @@ int main()
     cout << "Enter a string to reverse: ";
     cin >> str;
     reverse(str);
-    cout << str << "\n";
+    cout << "Reversed: " << str << endl;
     
     return 0;
 }
