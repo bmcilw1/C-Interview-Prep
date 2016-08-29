@@ -132,9 +132,7 @@ int main()
     ll2.Insert(d);
     ll2.Insert(e);
 
-    Node * n = CheckIntersection(ll.root, ll2.root);
-
-    if (n)
+    if (Node * n = CheckIntersection(ll.root, ll2.root))
     {
         cout << "Intersection found at node: " << n -> data << endl;
     }
