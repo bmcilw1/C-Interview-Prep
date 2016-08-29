@@ -14,6 +14,7 @@ using std::map;
 using std::string;
 using std::cout;
 using std::ostringstream;
+using std::endl;
 
 class Node
 {
@@ -31,7 +32,7 @@ public:
         next = 0;
     }
 };
-
+ 
 class MyLinkedList
 {
 private:
@@ -79,10 +80,8 @@ public:
     }
 };
 
-Node * CheckIntersection(MyLinkedList ll, MyLinkedList ll2)
+Node * CheckIntersection(Node * llTrack, Node * ll2Track)
 {
-    Node * llTrack = ll.root;
-    Node * ll2Track = ll2.root;
     map<string, bool> passedAddresses;
     ostringstream oss;
 
@@ -96,21 +95,22 @@ Node * CheckIntersection(MyLinkedList ll, MyLinkedList ll2)
         passedAddresses[oss.str()] = true;
         llTrack = llTrack -> next;
     }
+
     while (ll2Track)
     {
         // Clear stream
         oss.str("");
 
         // Store address
-        oss << llTrack;
-        if(passedAddresses[oss.str()] != true)
+        oss << ll2Track;
+        if(passedAddresses[oss.str()] == true)
         {
             return ll2Track;
         }
         ll2Track = ll2Track -> next;
     }
 
-    return llTrack;
+    return 0;
 }
 
 int main()
@@ -129,16 +129,18 @@ int main()
     ll.Insert(c);
     ll.Insert(d);
 
-    //ll2.Insert(d);
+    ll2.Insert(d);
     ll2.Insert(e);
 
-    if (Node * n = CheckIntersection(ll, ll2))
+    Node * n = CheckIntersection(ll.root, ll2.root);
+
+    if (n)
     {
-        cout << "Intersection found at node: " << n -> data;
+        cout << "Intersection found at node: " << n -> data << endl;
     }
     else
     {
-        cout << "Nope, no intersection between linked lists";
+        cout << "Nope, no intersection between linked lists" << endl;
     }
 
     return 0;
