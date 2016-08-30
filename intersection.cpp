@@ -32,6 +32,9 @@ public:
         next = 0;
     }
 };
+
+map<string, bool> passedAddresses;
+ostringstream oss;
  
 class MyLinkedList
 {
@@ -42,7 +45,15 @@ private:
         {
             deleteNodes(n -> next);
         }
-        delete n;
+
+        oss.str("");
+        oss << &n;
+
+        if (passedAddresses[oss.str()])
+        {
+            delete n;
+            passedAddresses[oss.str()] = false;
+        }
     }
 
 public:
@@ -82,9 +93,6 @@ public:
 
 Node * CheckIntersection(Node * llTrack, Node * ll2Track)
 {
-    map<string, bool> passedAddresses;
-    ostringstream oss;
-
     while (llTrack)
     {
         // Clear stream
