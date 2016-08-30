@@ -33,6 +33,8 @@ public:
     }
 };
 
+// NOTE: a C++ map is NOT a hash table, but a map is actually implemented as a binary search tree
+// This can be changed to a hash map if input was enough to justify it
 map<string, bool> passedAddresses;
 ostringstream oss;
  
