@@ -12,8 +12,10 @@ using std::endl;
 
 int main()
 {
-    //AdjGraph g(3);
     AdjGraph gr;
+    AdjGraph g(3);
+    g.insert(1,1);
+    g.remove(1,1);
     
     // Iterate over graph
     /*for (vector< list<int> >::iterator vectit = adjList.begin(); vectit != adjList.end(); ++vectit)

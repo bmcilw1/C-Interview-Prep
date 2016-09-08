@@ -16,9 +16,9 @@ public:
     AdjGraph ();
     AdjGraph (int length);
     virtual ~AdjGraph ();
-    void Insert (int x, int y);
-    void Remove (int x, int y);
-    int Count;
+    bool insert (int x, int y);
+    bool remove (int x, int y);
+    int count;
 
 private:
     vector< list<int> > graph;

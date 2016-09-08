@@ -1,18 +1,44 @@
 #include "AdjGraph.h"
 
 AdjGraph::AdjGraph() {
-    Count = 0;
+    count = 0;
 }
 
 AdjGraph::AdjGraph(int length) {
-    Count = 0;
+    graph.resize(length);
+    count = 0;
 }
 
 AdjGraph::~AdjGraph() { }
 
-void AdjGraph::Insert(int x, int y) {
-    graph[x].push_back(y);
+bool AdjGraph::insert(int x, int y) {
+    bool success = false;
+    try {
+        graph.at(x);
+        graph[x].push_back(y);
+        success = true;
+    } catch (const std::out_of_range& ex) {
+    }
+
+    return success;
 }
 
-void AdjGraph::Remove(int x, int y) {
+bool AdjGraph::remove(int x, int y) {
+    bool success = false;
+
+    try {
+        graph.at(x);
+
+        for (list<int>::iterator listit = graph[x].begin(); listit != graph[x].end(); ++listit)
+        {
+            if (*listit == y) {
+                graph[x].erase(listit);
+                success = true;
+                break;
+            }
+        }
+    } catch (const std::out_of_range& ex) {
+    }
+
+    return success;
 }
