@@ -6,21 +6,23 @@
 
 #include <vector>
 #include <list>
-
-using std::list;
-using std::vector;
+#include <queue>
 
 class AdjGraph
 {
 public:
-    AdjGraph ();
     AdjGraph (int length);
     virtual ~AdjGraph ();
     bool insert (int x, int y);
     bool remove (int x, int y);
-    int count;
+    bool searchDFS (int v);
+    bool searchBFS (int v);
+    int edgeCount;
+    std::queue<int> orderVisited;
 
 private:
-    vector< list<int> > graph;
+    std::vector< std::list<int> > graph;
+    std::vector<bool> visited;
+    void dfs (int v);
 };
 #endif

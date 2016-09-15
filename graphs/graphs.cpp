@@ -5,31 +5,50 @@
 #include <iostream>
 #include "AdjGraph.h"
 
-using std::cout;
-using std::endl;
-
-//vector< list<int> > adjList(4);
-
 int main()
 {
-    AdjGraph gr;
-    AdjGraph g(3);
+    AdjGraph g(6);
+
+    /* Adj List:
+     * 0 -> 1, 5, 3
+     * 1 -> 1, 2, 3
+     * 2 -> 0
+     * 3 -> 
+     * 4 -> 
+     * 5 -> 4
+     *
+     * dfs(1): 1, 2, 0, 5, 4, 3
+     * bfs(1): 1, 2, 3, 0, 5, 4
+     */
+
     g.insert(1,1);
+    g.insert(0,1);
+    g.insert(0,5);
+    g.insert(5,4);
+    g.insert(2,0);
+    g.insert(1,2);
+    g.insert(1,3);
+    g.insert(0,3);
+
+    g.searchDFS(1);
+
+    std::cout << "DFS: ";
+    while (!g.orderVisited.empty()) {
+        std::cout << g.orderVisited.front() << " ";
+        g.orderVisited.pop();
+    }
+
+    g.searchBFS(1);
+
+    std::cout << "\nBFS: ";
+    while (!g.orderVisited.empty()) {
+        std::cout << g.orderVisited.front() << " ";
+        g.orderVisited.pop();
+    }
+
+    std::cout << std::endl;
+
     g.remove(1,1);
-    
-    // Iterate over graph
-    /*for (vector< list<int> >::iterator vectit = adjList.begin(); vectit != adjList.end(); ++vectit)
-    {
-        cout << "vertex: " << vectit - adjList.begin() << " contains a path to: ";
-
-        for (list<int>::iterator listit = vectit->begin(); listit != vectit->end(); ++listit)
-        {
-            int value = *listit;
-            cout << value << " ";
-        }
-
-        cout << endl;
-    }*/
 
     return 0;
 }
