@@ -62,10 +62,25 @@ int main() {
     char tmp;
     while (std::cin >> tmp)
         cipher.push_back(tmp == '1');
-    
+
+    /* // Brute force
     for(std::vector<bool>::iterator it = cipher.begin(); it != cipher.end() - k + 1; it++) {
         for (int i=1; i<k && it-i != cipher.begin() -1; i++)
             *it = *it ^ *(it-i);
+        std::cout << *it;
+    } */
+
+    // Better
+    for(std::vector<bool>::iterator it = cipher.begin(); it != cipher.end() - k + 1; it++) {
+        if (it != cipher.begin()) {
+            bool tmp = *it;
+            if (it-start_k == k) {
+                *it = *start_k ^ last_cyph ^ *it;
+                start_k++;
+            } else 
+                *it = last_cyph ^ *it;
+            last_cyph = tmp;
+        }
         std::cout << *it;
     }
 
