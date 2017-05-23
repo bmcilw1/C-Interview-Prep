@@ -56,12 +56,12 @@ public:
 int main() {
     lru_cache<std::string, int> c(3);
 
-    //c.insert("one", 1);
-    //c.insert("two", 2);
-    //c.insert("three", 3);
-    //c.insert("four", 4);
+    c.insert("one", 1);
+    c.insert("two", 2);
+    c.insert("three", 3);
+    c.insert("four", 4);
 
-    //std::cout << c.access("four") << " " << c.access("one");
+    std::cout << c.access("four") << " " << c.access("one") << std::endl;
 
     return 0;
 }
