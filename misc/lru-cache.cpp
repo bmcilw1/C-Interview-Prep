@@ -5,13 +5,14 @@
 // and be initialized with a max_size. When it is full, it should evict the least recently used item
 
 #include<iostream>
-#include<queue>
+#include<list>
 #include<string>
 #include<unordered_map>
+#include<utility>
 
 template <class kT, class vT> class lru_cache {
-    std::queue<kT> order;
-    std::unordered_map<kT, vT> data;
+    std::list<kT> order;
+    std::unordered_map< kT, std::pair< vT, typename std::list<kT>::const_iterator > > data;
     int max_size, size;
 
 void evict() {
@@ -19,7 +20,7 @@ void evict() {
     {
         kT front  = order.front();
 
-        order.pop();
+        order.pop_front();
         data.erase(front);
 
         size--;
@@ -37,8 +38,8 @@ public:
     }
 
     void insert(kT key, vT value) {
-        data[key] = value;
-        order.push(key);
+        order.push_back(key);
+        data[key] = std::make_pair(value, --order.end());
 
         if (size == max_size)
             evict();
@@ -49,7 +50,18 @@ public:
     }
 
     vT access(kT key) {
-        return data[key];
+        return data[key].first;
+    }
+
+    vT remove(kT key) {
+        std::pair<vT, typename std::list<kT>::const_iterator > d = data[key];
+
+        data.erase(key);
+        order.erase(d.second);
+
+        size--;
+
+        return d.first;
     }
 };
 
@@ -62,6 +74,10 @@ int main() {
     c.insert("four", 4);
 
     std::cout << c.access("four") << " " << c.access("one") << std::endl;
+
+    c.remove("two");
+    std::cout << c.access("one") << " " << c.access("two") << std::endl;
+    std::cout << c.access("three") << " " << c.access("four") << std::endl;
 
     return 0;
 }
